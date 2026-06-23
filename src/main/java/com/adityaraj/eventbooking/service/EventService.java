@@ -1,0 +1,10 @@
+package com.adityaraj.eventbooking.service;
+
+import com.adityaraj.eventbooking.model.Event;
+
+import java.util.List;
+
+public interface EventService {
+
+    List<Event> getAllEvents();
+}
