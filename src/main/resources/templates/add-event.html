@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Event</title>
+</head>
+<body>
+<h1>Add New Event</h1>
+
+<form th:action="@{/admin/events/add}" th:object="${event}" method="post">
+
+    <label>Event Name</label>
+    <input type="text" th:field="*{eventName}"/>
+
+    <br>
+
+    <label>Event Description</label>
+    <input type="text" th:field="*{eventDescription}"/>
+    <br>
+    <label>Venue</label>
+    <input type="text" th:field="*{venue}"/>
+    <br>
+    <label>Event Type</label>
+    <input type="text" th:field="*{eventType}"/>
+    <br>
+    <label>Event Date</label>
+    <input type="date" th:field="*{Date}"/>
+    <br>
+    <label>Start Time Of Event</label>
+    <input type="time" th:field="*{startTime}"/>
+    <br>
+    <label>End Time Of Event</label>
+    <input type="time" th:field="*{endTime}"/>
+    <br>
+    <label>Price</label>
+    <input type="number" th:field="*{price}"/>
+    <br>
+    <label>Total Capacity</label>
+    <input type="number" th:field="*{totalCapacity}"/>
+    <br>
+    <label>Available Capacity</label>
+    <input type="number" th:field="*{availableCapacity}"/>
+    <br>
+    <label>Last Booking Date</label>
+    <input type="date" th:field="*{lastBookingDate}"/>
+    <br>
+
+
+    <!-- add remaining fields yourself -->
+
+    <button type="submit">Save Event</button>
+</form>
+
+</body>
+</html>
