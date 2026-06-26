@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Event</title>
+
+</head>
+<body>
+
+<form th:action="@{/admin/events/edit/{id}(id=${event.id})}" th:object="${event}" method="post">
+    <h1>Kindly edit the details of the event==>></h1>
+<label>Event Name</label>
+<input type="text" th:field="*{eventName}"/>
+
+<br>
+
+<label>Event Description</label>
+<input type="text" th:field="*{eventDescription}"/>
+<br>
+<label>Venue</label>
+<input type="text" th:field="*{venue}"/>
+<br>
+<label>Event Type</label>
+<input type="text" th:field="*{eventType}"/>
+<br>
+<label>Event Date</label>
+<input type="date" th:field="*{Date}"/>
+<br>
+<label>Start Time Of Event</label>
+<input type="time" th:field="*{startTime}"/>
+<br>
+<label>End Time Of Event</label>
+<input type="time" th:field="*{endTime}"/>
+<br>
+<label>Price</label>
+<input type="number" th:field="*{price}"/>
+<br>
+<label>Total Capacity</label>
+<input type="number" th:field="*{totalCapacity}"/>
+<br>
+<label>Available Capacity</label>
+<input type="number" th:field="*{availableCapacity}"/>
+<br>
+<label>Last Booking Date</label>
+<input type="date" th:field="*{lastBookingDate}"/>
+<br>
+
+
+
+<button type="submit">Save Event</button>
+</form>
+
+</body>
+</html>

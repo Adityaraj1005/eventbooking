@@ -10,4 +10,8 @@ public interface EventService {
     List<Event> getAllEvents();
 
     void saveEvent(Event event);
+
+    Event findById(Long id);
+
+    void deleteById(Long id);
 }

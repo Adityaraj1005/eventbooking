@@ -15,14 +15,24 @@
         <th>Date</th>
         <th>Venue</th>
         <th>Price</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="event : ${events}">
         <td th:text="${event.eventName}"></td>
         <td th:text="${event.date}"></td>
         <td th:text="${event.venue}"></td>
         <td th:text="${event.price}"></td>
+        <td>
+            <a th:href="@{/admin/events/edit/{id}(id=${event.id})}">Edit</a>
+        </td>
+        <td>
+            <a th:href="@{/admin/events/delete/{id}(id=${event.id})}"
+               onclick="return confirm('Are you sure you want to delete this event?')">Delete</a>
+        </td>
     </tr>
 </table>
+
 
 
 

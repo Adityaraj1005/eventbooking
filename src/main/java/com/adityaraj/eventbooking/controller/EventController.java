@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class EventController {
     @GetMapping("/events")
     public String showEvents(Model model) {
         List<Event> events = eventService.getAllEvents();
-        model.addAttribute("events", events);
+        model.addAttribute("events", events);//adding to model naming them as events
         return "events";
     }
 
@@ -38,4 +39,22 @@ public class EventController {
         return "redirect:/events";//avoids duplicate submission
     }
 
+    @GetMapping("/admin/events/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Event event = eventService.findById(id);
+        model.addAttribute("event", event);
+        return "edit-event";
+    }
+
+    @PostMapping("/admin/events/edit/{id}")
+    public String editEvents(@ModelAttribute Event event) {
+        eventService.saveEvent(event);
+        return "redirect:/events";
+    }
+
+    @GetMapping("/admin/events/delete/{id}")
+    public String deleteEvent(@PathVariable Long id) {
+        eventService.deleteById(id);
+        return "redirect:/events";
+    }
 }
