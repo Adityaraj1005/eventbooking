@@ -3,51 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Event</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-<h1>Add New Event</h1>
+<div class="container mt-4" style="max-width: 600px;">
+    <h2>Add New Event</h2>
 
-<form th:action="@{/admin/events/add}" th:object="${event}" method="post">
+    <form th:action="@{/admin/events/add}" th:object="${event}" method="post">
 
-    <label>Event Name</label>
-    <input type="text" th:field="*{eventName}"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-    <br>
+        <div class="mb-3">
+            <label for="eventName">Event Name</label>
+            <input type="text" id="eventName" class="form-control" th:field="*{eventName}"/>
+        </div>
 
-    <label>Event Description</label>
-    <input type="text" th:field="*{eventDescription}"/>
-    <br>
-    <label>Venue</label>
-    <input type="text" th:field="*{venue}"/>
-    <br>
-    <label>Event Type</label>
-    <input type="text" th:field="*{eventType}"/>
-    <br>
-    <label>Event Date</label>
-    <input type="date" th:field="*{Date}"/>
-    <br>
-    <label>Start Time Of Event</label>
-    <input type="time" th:field="*{startTime}"/>
-    <br>
-    <label>End Time Of Event</label>
-    <input type="time" th:field="*{endTime}"/>
-    <br>
-    <label>Price</label>
-    <input type="number" th:field="*{price}"/>
-    <br>
-    <label>Total Capacity</label>
-    <input type="number" th:field="*{totalCapacity}"/>
-    <br>
-    <label>Available Capacity</label>
-    <input type="number" th:field="*{availableCapacity}"/>
-    <br>
-    <label>Last Booking Date</label>
-    <input type="date" th:field="*{lastBookingDate}"/>
-    <br>
+        <div class="mb-3">
+            <label for="eventDescription">Event Description</label>
+            <input type="text" id="eventDescription" class="form-control" th:field="*{eventDescription}"/>
+        </div>
 
+        <div class="mb-3">
+            <label for="venue">Venue</label>
+            <input type="text" id="venue" class="form-control" th:field="*{venue}"/>
+        </div>
 
-    <button type="submit">Save Event</button>
-</form>
+        <div class="mb-3">
+            <label for="eventType">Event Type</label>
+            <input type="text" id="eventType" class="form-control" th:field="*{eventType}"/>
+        </div>
 
+        <div class="mb-3">
+            <label for="date">Event Date</label>
+            <input type="date" id="date" class="form-control" th:field="*{date}"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="startTime">Start Time</label>
+            <input type="time" id="startTime" class="form-control" th:field="*{startTime}"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="endTime">End Time</label>
+            <input type="time" id="endTime" class="form-control" th:field="*{endTime}"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="price">Price</label>
+            <input type="number" id="price" class="form-control" th:field="*{price}"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="totalCapacity">Total Capacity</label>
+            <input type="number" id="totalCapacity" class="form-control" th:field="*{totalCapacity}"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="availableCapacity">Available Capacity</label>
+            <input type="number" id="availableCapacity" class="form-control" th:field="*{availableCapacity}"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastBookingDate">Last Booking Date</label>
+            <input type="date" id="lastBookingDate" class="form-control" th:field="*{lastBookingDate}"/>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Event</button>
+        <a th:href="@{/events}" class="btn btn-secondary">Cancel</a>
+
+    </form>
+</div>
 </body>
 </html>
