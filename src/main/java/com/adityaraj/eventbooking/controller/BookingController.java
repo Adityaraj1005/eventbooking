@@ -62,4 +62,11 @@ public class BookingController {
         bookingService.cancelBooking(id);
         return "redirect:/my-bookings";
     }
+
+    @GetMapping("/admin/bookings")
+    public String showAllBookings(Model model) {
+        List<Booking> bookings = bookingService.getAllBookings();
+        model.addAttribute("bookings", bookings);
+        return "admin-bookings";
+    }
 }

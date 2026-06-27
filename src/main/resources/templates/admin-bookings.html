@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Bookings</title>
+</head>
+<body>
+
+<h1>All Bookings</h1>
+
+<table>
+    <tr>
+        <th>Booking ID</th>
+        <th>User Name</th>
+        <th>User Email</th>
+        <th>Event Name</th>
+        <th>Booking Date</th>
+        <th>People</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="booking : ${bookings}">
+        <td th:text="${booking.id}"></td>
+        <td th:text="${booking.user.name}"></td>
+        <td th:text="${booking.user.email}"></td>
+        <td th:text="${booking.event.eventName}"></td>
+        <td th:text="${booking.bookingDate}"></td>
+        <td th:text="${booking.numberOfPeople}"></td>
+        <td th:text="${booking.bookingStatus}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
