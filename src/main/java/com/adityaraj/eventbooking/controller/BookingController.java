@@ -42,11 +42,9 @@ public class BookingController {
         booking.setEvent(event);
         booking.setUser(user);
         booking.setBookingDate(LocalDate.now());
-        booking.setBookingStatus("CONFIRMED");
+        booking.setBookingStatus("PENDING");
         bookingService.saveBooking(booking);
-
-
-        return "redirect:/my-bookings";
+        return "redirect:/payment/" + booking.getId();
     }
 
     @GetMapping("/my-bookings")
@@ -68,5 +66,18 @@ public class BookingController {
         List<Booking> bookings = bookingService.getAllBookings();
         model.addAttribute("bookings", bookings);
         return "admin-bookings";
+    }
+
+    @GetMapping("/payment/{bookingId}")
+    public String showPaymentPage(@PathVariable Long bookingId, Model model) {
+        Booking booking = bookingService.getBookingById(bookingId);
+        model.addAttribute("booking", booking);
+        return "payment";
+    }
+
+    @PostMapping("/payment/{bookingId}/confirm")
+    public String confirmPayment(@PathVariable Long bookingId) {
+        bookingService.confirmBooking(bookingId);
+        return "redirect:/my-bookings";
     }
 }

@@ -53,4 +53,16 @@ public class BookingServiceImpl implements BookingService {
         eventRepository.save(event);
         bookingRepository.deleteById(bookingId);
     }
+
+    @Override
+    public Booking getBookingById(Long id) {
+        return bookingRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void confirmBooking(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow();
+        booking.setBookingStatus("CONFIRMED");
+        bookingRepository.save(booking);
+    }
 }
