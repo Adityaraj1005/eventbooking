@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Event</title>
+</head>
+<body>
+
+<h1>Book Event</h1>
+
+<form th:action="@{/booking/event/{eventId}(eventId=${event.id})}"
+      th:object="${booking}" method="post">
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <label for="eventName">Event Name</label>
+    <input type="text" id="eventName" th:value="${event.eventName}" readonly/>
+    <br>
+
+    <label for="date">Event Date</label>
+    <input type="text" id="date" th:value="${event.date}" readonly/>
+    <br>
+
+    <label for="venue">Venue</label>
+    <input type="text" id="venue" th:value="${event.venue}" readonly/>
+    <br>
+
+    <label for="price">Price Per Person</label>
+    <input type="text" id="price" th:value="${event.price}" readonly/>
+    <br>
+
+    <label for="numberOfPeople">Number of People</label>
+    <input type="number" id="numberOfPeople" th:field="*{numberOfPeople}" min="1"/>
+    <br>
+
+    <button type="submit">Confirm Booking</button>
+</form>
+
+</body>
+</html>

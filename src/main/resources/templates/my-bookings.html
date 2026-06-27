@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+</head>
+<body>
+
+<h1>My Bookings</h1>
+
+<table>
+    <tr>
+        <th>Event Name</th>
+        <th>Date</th>
+        <th>Venue</th>
+        <th>People</th>
+        <th>Status</th>
+        <th>Cancel</th>
+    </tr>
+    <tr th:each="booking : ${bookings}">
+        <td th:text="${booking.event.eventName}"></td>
+        <td th:text="${booking.bookingDate}"></td>
+        <td th:text="${booking.event.venue}"></td>
+        <td th:text="${booking.numberOfPeople}"></td>
+        <td th:text="${booking.bookingStatus}"></td>
+        <td>
+            <a th:href="@{/booking/cancel/{id}(id=${booking.id})}"
+               onclick="return confirm('Cancel this booking?')">Cancel</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
