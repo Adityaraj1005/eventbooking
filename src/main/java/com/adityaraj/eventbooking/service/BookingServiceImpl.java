@@ -1,7 +1,9 @@
 package com.adityaraj.eventbooking.service;
 
 import com.adityaraj.eventbooking.model.Booking;
+import com.adityaraj.eventbooking.model.Event;
 import com.adityaraj.eventbooking.repository.BookingRepository;
+import com.adityaraj.eventbooking.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,20 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     BookingRepository bookingRepository;
 
+    @Autowired
+    EventRepository eventRepository;
+
+
     @Override
     public void saveBooking(Booking booking) {
-        bookingRepository.save(booking);
+        Event event = booking.getEvent();
+        if(event.getAvailableCapacity() >= booking.getNumberOfPeople()) {
+            event.setAvailableCapacity(event.getAvailableCapacity() - booking.getNumberOfPeople());
+            eventRepository.save(event);
+            bookingRepository.save(booking);
+        } else {
+            throw new RuntimeException("Not enough seats available!");
+        }
     }
 
     @Override
@@ -31,6 +44,10 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void cancelBooking(long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow();
+        Event event = booking.getEvent();
+        event.setAvailableCapacity(event.getAvailableCapacity() + booking.getNumberOfPeople());
+        eventRepository.save(event);
         bookingRepository.deleteById(bookingId);
     }
 }
