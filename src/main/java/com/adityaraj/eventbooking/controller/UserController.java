@@ -38,4 +38,17 @@ public class UserController {
         return "redirect:/users";//avoids duplicate submission
     }
 
+
+    @GetMapping("/register")
+    public String showRegisterPage(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user) {
+        user.setRole("USER");
+        userService.save(user);
+        return "redirect:/login";
+    }
 }

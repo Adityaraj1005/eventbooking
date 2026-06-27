@@ -6,13 +6,16 @@
 </head>
 <body>
 <form method="POST" action="/login">
-    <h1>Login Page==>></h1>
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" placeholder="Username">
+    <h1>Login Page</h1>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <label for="username">Email</label>
+    <input type="text" id="username" name="username" placeholder="Email">
+
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" placeholder="Password">
+    <input type="password" id="password" name="password" placeholder="Password">
+
     <button type="submit">Login</button>
 </form>
-
 </body>
 </html>
