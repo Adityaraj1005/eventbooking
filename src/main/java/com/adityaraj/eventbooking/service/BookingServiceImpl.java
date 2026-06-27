@@ -4,6 +4,7 @@ import com.adityaraj.eventbooking.model.Booking;
 import com.adityaraj.eventbooking.model.Event;
 import com.adityaraj.eventbooking.repository.BookingRepository;
 import com.adityaraj.eventbooking.repository.EventRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class BookingServiceImpl implements BookingService {
     EventRepository eventRepository;
 
 
+    @Transactional //"I used @Transactional annotation to handle concurrent booking requests,
+    // ensuring data consistency when multiple users book simultaneously."
     @Override
     public void saveBooking(Booking booking) {
         Event event = booking.getEvent();
