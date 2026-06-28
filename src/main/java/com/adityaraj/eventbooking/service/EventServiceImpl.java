@@ -31,4 +31,9 @@ public class EventServiceImpl implements EventService {
     public void deleteById(Long id) {
         eventRepository.deleteById(id);
     }
+
+    @Override
+    public List<Event> searchEvents(String keyword) {
+        return eventRepository.findByEventNameContainingOrVenueContaining(keyword, keyword);
+    }
 }

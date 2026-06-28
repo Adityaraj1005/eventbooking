@@ -14,4 +14,6 @@ public interface EventService {
     Event findById(Long id);
 
     void deleteById(Long id);
+
+    List<Event> searchEvents(String keyword);
 }

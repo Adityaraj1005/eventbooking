@@ -5,10 +5,7 @@ import com.adityaraj.eventbooking.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,5 +53,16 @@ public class EventController {
     public String deleteEvent(@PathVariable Long id) {
         eventService.deleteById(id);
         return "redirect:/events";
+    }
+
+
+    //@RequestParam extracts the search term from URL.
+    //URL looks like: /events/search?keyword=Pune
+    //@RequestParam takes keyword=Pune and puts "Pune" into keyword variable!
+    @GetMapping("/events/search")
+    public String searchEvents(@RequestParam String keyword, Model model) {
+        List<Event> events = eventService.searchEvents(keyword);
+        model.addAttribute("events", events);
+        return "events";
     }
 }
