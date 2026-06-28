@@ -1,5 +1,6 @@
 package com.adityaraj.eventbooking.service;
 
+import com.adityaraj.eventbooking.exception.NotEnoughSeatsException;
 import com.adityaraj.eventbooking.model.Booking;
 import com.adityaraj.eventbooking.model.Event;
 import com.adityaraj.eventbooking.repository.BookingRepository;
@@ -31,7 +32,7 @@ public class BookingServiceImpl implements BookingService {
             eventRepository.save(event);
             bookingRepository.save(booking);
         } else {
-            throw new RuntimeException("Not enough seats available!");
+            throw new NotEnoughSeatsException("Not enough seats available!");
         }
     }
 
