@@ -16,6 +16,16 @@ import java.util.List;
 // I don't need to write any SQL or implementation code for basic operations."
 
 public interface EventRepository  extends JpaRepository<Event, Long> {
+    // JpaRepository<Event, Long>
+// First parameter 'Event' → which entity this repository manages
+// Second parameter 'Long' → data type of primary key (id field)
 
     List<Event> findByEventNameContainingOrVenueContaining(String name, String venue);
+    //Breaking down the method name:
+    //findBy → SELECT * FROM event WHERE
+    //EventName → event_name column
+    //Containing → LIKE '%keyword%'
+    //Or → OR
+    //Venue → venue column
+    //Containing → LIKE '%keyword%'
 }
