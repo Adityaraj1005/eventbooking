@@ -18,21 +18,33 @@
         <div class="mb-3">
             <label for="name">User Name</label>
             <input type="text" id="name" th:field="*{name}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"
+                  class="text-danger small"></span>
         </div>
 
         <div class="mb-3">
             <label for="email">User Email</label>
             <input type="email" id="email" th:field="*{email}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                  class="text-danger small"></span>
         </div>
 
         <div class="mb-3">
             <label for="password">Password</label>
             <input type="password" id="password" th:field="*{password}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"
+                  class="text-danger small"></span>
         </div>
 
         <div class="mb-3">
             <label for="mobileNo">Mobile No.</label>
             <input type="text" id="mobileNo" th:field="*{mobileNo}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('mobileNo')}"
+                  th:errors="*{mobileNo}"
+                  class="text-danger small"></span>
         </div>
 
         <div class="mb-3">
@@ -56,6 +68,5 @@
     </form>
 
 </div>
-
 </body>
 </html>
