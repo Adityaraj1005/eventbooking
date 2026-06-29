@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Events</title>
@@ -29,8 +30,8 @@
             <th>Venue</th>
             <th>Price</th>
             <th>Available Seats</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th sec:authorize="hasRole('ADMIN')">Edit</th>
+            <th sec:authorize="hasRole('ADMIN')">Delete</th>
             <th>Book</th>
         </tr>
         </thead>
@@ -41,11 +42,15 @@
             <td th:text="${event.venue}"></td>
             <td th:text="${event.price}"></td>
             <td th:text="${event.availableCapacity}"></td>
-            <td>
-                <a th:href="@{/admin/events/edit/{id}(id=${event.id})}">Edit</a>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/events/edit/{id}(id=${event.id})}"
+                   class="btn btn-warning btn-sm">Edit</a>
             </td>
-            <td>
-                <a th:href="@{/admin/events/delete/{id}(id=${event.id})}">Delete</a>
+
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/events/delete/{id}(id=${event.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?')">Delete</a>
             </td>
             <td>
                 <a th:href="@{/booking/event/{id}(id=${event.id})}">Book Now</a>
