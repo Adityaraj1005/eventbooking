@@ -56,7 +56,9 @@ public class BookingController {
         return "my-bookings";
     }
 
-    @GetMapping("/booking/cancel/{id}")
+    //Viewing something → @GetMapping
+    //Changing something → @PostMapping
+    @PostMapping("/booking/cancel/{id}")
     public String cancelBooking(@PathVariable Long id) {
         bookingService.cancelBooking(id);
         return "redirect:/my-bookings";
