@@ -14,11 +14,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 //With GlobalExceptionHandler:
 //Write error handling ONCE → works for ALL controllers automatically!
 //@ControllerAdvice = "watch ALL controllers and handle exceptions globally"
-@ControllerAdvice//looks all controller for exception
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotEnoughSeatsException.class)
     public String handleNotEnoughSeats(NotEnoughSeatsException ex, Model model) {
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public String handleRuntimeException(RuntimeException ex, Model model) {
         model.addAttribute("errorMessage", ex.getMessage());
         return "error";
     }
