@@ -2,9 +2,11 @@ package com.adityaraj.eventbooking.controller;
 
 import com.adityaraj.eventbooking.model.Event;
 import com.adityaraj.eventbooking.service.EventService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,10 +32,18 @@ public class EventController {
         return "add-event";
     }
 
-    @PostMapping("/admin/events/add")//@ModelAttribute automatically fetches all data for event
-    public String addEvents(@ModelAttribute Event event) {
+
+    // //Added @Valid before @ModelAttribute → triggers validation
+    //    //Added BindingResult result → holds all validation errors
+    //    //Added if(result.hasErrors()) → if any field fails → go back to register page with errors
+    @PostMapping("/admin/events/add")
+    public String addEvents(@Valid @ModelAttribute Event event,
+                            BindingResult result) {
+        if(result.hasErrors()) {
+            return "add-event";
+        }
         eventService.saveEvent(event);
-        return "redirect:/events";//avoids duplicate submission
+        return "redirect:/events";
     }
 
     @GetMapping("/admin/events/edit/{id}")
