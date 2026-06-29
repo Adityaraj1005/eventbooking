@@ -6,9 +6,11 @@ import com.adityaraj.eventbooking.model.User;
 import com.adityaraj.eventbooking.service.BookingService;
 import com.adityaraj.eventbooking.service.EventService;
 import com.adityaraj.eventbooking.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,8 +38,30 @@ public class BookingController {
         return "booking";
     }
 
+
+    //Principal represents the currently logged in user!
+    //When someone logs in → Spring Security stores their
+    // information → Principal gives you access to it!
+    //
+    //What it contains:
+    //principal.getName() → returns the username of logged in user
+    //In your app username = email address!
+    //So:
+    //javaprincipal.getName() → "admin@test.com"
     @PostMapping("/booking/event/{eventId}")
-    public String booking(@PathVariable Long eventId, @ModelAttribute Booking booking, Principal principal) {
+    public String booking(@PathVariable Long eventId,
+                          @Valid @ModelAttribute Booking booking,
+                          BindingResult result,
+                          Principal principal,
+                          Model model) {
+        if(result.hasErrors()) {
+            Event event = eventService.findById(eventId);
+            model.addAttribute("event", event);
+            return "booking";
+            //When going back to booking form — page needs event
+            // details to display again (event name, venue, price)!
+            //Without this → booking page shows empty — no event details!
+        }
         Event event = eventService.findById(eventId);
         User user = userService.findByEmail(principal.getName());
         booking.setEvent(event);

@@ -1,6 +1,8 @@
 package com.adityaraj.eventbooking.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,11 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     LocalDate bookingDate;
+
+    @NotNull(message = "Number of people is required")
+    @Min(value = 1, message = "At least 1 person required")
     Integer numberOfPeople;
+
     String bookingStatus;
     LocalTime bookingTime;
 

@@ -45,6 +45,9 @@
             <input type="number" id="numberOfPeople"
                    th:field="*{numberOfPeople}"
                    class="form-control" min="1"/>
+            <span th:if="${#fields.hasErrors('numberOfPeople')}"
+                  th:errors="*{numberOfPeople}"
+                  class="text-danger small"></span>
         </div>
 
         <button type="submit" class="btn btn-primary">Confirm Booking</button>
