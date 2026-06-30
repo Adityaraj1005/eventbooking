@@ -196,6 +196,19 @@ Deployed on **Railway**, which builds directly from this GitHub repository on ev
 
 **Notable fix during deployment:** the project's `pom.xml` originally targeted Java 25 (set locally to match the only JDK available in the dev environment at the time). Railway's build image didn't support that version, so it was changed to Java 21 (a standard LTS release) — this is a good example of why pinning to a widely-supported LTS version matters for portability across environments.
 
+
+**Challenges faced during deployment:**
+
+1. **Build failure on Java version.** First deployment attempt failed at the compile step with `error: release version 25 not supported`. The local `pom.xml` had been set to Java 25 earlier purely because that was the only JDK installed locally at the time — Railway's build image didn't recognize that version at all. Fixed by changing `<java.version>` to 21.
+
+2.Issue: App crashed due to malformed database URL
+After deployment, the app crashed with a Communications link failure error. The database URL was resolving to jdbc:mysql://: with empty host and port.
+Cause: I referenced MySQL environment variables without the service name prefix (${{MYSQLHOST}} instead of ${{MySQL.MYSQLHOST}}). Railway requires the full service name when referencing variables from a different service in the same project.
+Fix: Updated the database URL to:
+jdbc:mysql://${{MySQL.MYSQLHOST}}:${{MySQL.MYSQLPORT}}/${{MySQL.MYSQLDATABASE}}
+
+3. **Production database started empty.** Since the Railway MySQL instance is a completely separate database from the local one used during development, none of the locally-created events, users, or admin account existed in production. Resolved by inserting sample event data directly via Railway's built-in database query interface, registering a fresh admin account through the live `/register` page, and promoting it to `ADMIN` with a manual `UPDATE` query — a good practical illustration of why seed data and database migrations matter for real deployments.
+
 ---
 
 ## How to Run Locally
