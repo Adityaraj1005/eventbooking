@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class User {
     String password;
 
     @NotBlank(message = "Mobile number is required")
+    @Pattern(regexp = "^\\d{10,}$", message = "Mobile number must be at least 10 digits")
     String mobileNo;
 
     String role;
