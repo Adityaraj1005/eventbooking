@@ -35,9 +35,12 @@ public class UserController {
     }
 
     @PostMapping("/admin/users/add")//@ModelAttribute automatically fetches all data for user
-    public String addUsers(@ModelAttribute User user) {
+    public String addUsers(@Valid @ModelAttribute User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "add-user";
+        }
         userService.save(user);
-        return "redirect:/users";//avoids duplicate submission
+        return "redirect:/users";
     }
 
 
