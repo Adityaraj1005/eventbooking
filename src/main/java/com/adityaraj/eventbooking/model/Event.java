@@ -1,9 +1,6 @@
 package com.adityaraj.eventbooking.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +20,14 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    // @Transactional ensures the seat update and booking save happen atomically.
+// @Version on Event adds optimistic locking, so if two users book the last
+// seat(s) at the same time, the second save fails safely instead of overselling.
+    
+
+    @Version
+    Integer version;
 
     @NotBlank(message = "Event name is required")
     String eventName;

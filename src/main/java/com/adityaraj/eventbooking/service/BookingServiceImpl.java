@@ -8,6 +8,7 @@ import com.adityaraj.eventbooking.repository.EventRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.dao.OptimisticLockingFailureException;
 
 import java.util.List;
 
@@ -26,13 +27,18 @@ public class BookingServiceImpl implements BookingService {
     // ensuring data consistency when multiple users book simultaneously."
     @Override
     public void saveBooking(Booking booking) {
-        Event event = booking.getEvent();
-        if(event.getAvailableCapacity() >= booking.getNumberOfPeople()) {
-            event.setAvailableCapacity(event.getAvailableCapacity() - booking.getNumberOfPeople());
-            eventRepository.save(event);
-            bookingRepository.save(booking);
-        } else {
-            throw new NotEnoughSeatsException("Not enough seats available!");
+       
+        try {
+            Event event = booking.getEvent();
+            if(event.getAvailableCapacity() >= booking.getNumberOfPeople()) {
+                event.setAvailableCapacity(event.getAvailableCapacity() - booking.getNumberOfPeople());
+                eventRepository.save(event);
+                bookingRepository.save(booking);
+            } else {
+                throw new NotEnoughSeatsException("Not enough seats available!");
+            }
+        } catch (OptimisticLockingFailureException e) {
+            throw new NotEnoughSeatsException("Seat availability just changed, please try booking again!");
         }
     }
 
