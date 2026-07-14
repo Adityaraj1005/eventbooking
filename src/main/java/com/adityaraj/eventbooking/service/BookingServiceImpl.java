@@ -27,7 +27,7 @@ public class BookingServiceImpl implements BookingService {
     // ensuring data consistency when multiple users book simultaneously."
     @Override
     public void saveBooking(Booking booking) {
-       
+
         try {
             Event event = booking.getEvent();
             if(event.getAvailableCapacity() >= booking.getNumberOfPeople()) {
@@ -52,6 +52,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void cancelBooking(long bookingId) {
         Booking booking = bookingRepository.findById(bookingId).orElseThrow();
@@ -66,6 +67,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findById(id).orElseThrow();
     }
 
+    @Transactional
     @Override
     public void confirmBooking(Long bookingId) {
         Booking booking = bookingRepository.findById(bookingId).orElseThrow();
