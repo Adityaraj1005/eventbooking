@@ -2,8 +2,9 @@
 
 A backend-focused web application built with Spring Boot that allows users to browse events, book seats, and manage bookings, while admins manage events and view all bookings. Built from scratch to understand and apply core Spring Boot concepts — MVC architecture, Spring Data JPA, Spring Security, and server-side rendering with Thymeleaf.
 
-**Live demo:** [eventbooking-production-291b.up.railway.app](https://eventbooking-production-291b.up.railway.app)
-Deployed on Railway, running against a live MySQL instance (also hosted on Railway).
+Live demo: [eventbooking-8dbw.onrender.com](https://eventbooking-8dbw.onrender.com) — deployed on Render (free tier, may take 30-60 seconds to load on first visit as the server wakes from sleep).
+
+Previous deployment: [eventbooking-production-291b.up.railway.app](https://eventbooking-production-291b.up.railway.app) — Railway deployment, currently inactive (free trial exhausted; can be reactivated by adding payment).
 
 ---
 
@@ -34,11 +35,11 @@ The project was built as a learning exercise to deeply understand Spring Boot's 
 
 ## Live Demo
 
-The application is deployed on [Railway](https://railway.app) and is publicly accessible:
+**Active:** [https://eventbooking-8dbw.onrender.com](https://eventbooking-8dbw.onrender.com)
+Deployed on Render free tier. May take 30-60 seconds to load on first visit as the server wakes from sleep — subsequent requests are normal speed.
 
-**[https://eventbooking-production-291b.up.railway.app](https://eventbooking-production-291b.up.railway.app)**
-
-The Spring Boot app and its MySQL database both run as separate Railway services within the same project, connected via Railway-managed environment variables (`SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`) referencing the database service's auto-generated credentials. `application.properties` reads these via Spring's `${ENV_VAR:fallback}` syntax, so the exact same codebase works unmodified both locally (falling back to local MySQL credentials) and in production (picking up Railway's injected values). See [Deployment](#deployment) for details.
+**Previous (inactive):** [https://eventbooking-production-291b.up.railway.app](https://eventbooking-production-291b.up.railway.app)
+Was deployed on Railway with the Spring Boot app and MySQL database as separate connected cloud services. Currently inactive as the free trial ($5 credits) was exhausted — can be reactivated by adding payment.
 
 Use the [demo credentials](#demo-credentials) below to log in as an admin or register a new account as a regular user.
 
