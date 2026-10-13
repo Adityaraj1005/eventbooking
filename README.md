@@ -64,7 +64,7 @@ Use the [demo credentials](#demo-credentials) below to log in as an admin or reg
 
 ### System-level
 - **Role-based access control** — Admin and User see different navigation options and have different permissions, enforced both in the UI (Thymeleaf + Spring Security extras) and at the backend (Spring Security filter chain)
-- **Concurrency-safe booking** — `@Transactional` ensures that two users booking the last available seat simultaneously cannot both succeed (prevents overbooking)
+- **Concurrency-safe booking** — `@Version` ensures that two users booking the same available seat simultaneously cannot both succeed (prevents overbooking)
 - **Centralized error handling** — custom exceptions (e.g., not enough seats, deleting an event with bookings) are caught globally and shown as friendly error pages instead of stack traces
 - **Form validation** — both required-field and business-rule validation (e.g., minimum 1 person per booking, valid email format, minimum password length) handled on the backend using Jakarta Bean Validation
 - **Search** — implemented using Spring Data JPA query derivation (no manual SQL)
