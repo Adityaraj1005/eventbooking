@@ -23,8 +23,7 @@ public class BookingServiceImpl implements BookingService {
     EventRepository eventRepository;
 
 
-    @Transactional //"I used @Transactional annotation to handle concurrent booking requests,
-    // ensuring data consistency when multiple users book simultaneously."
+    @Transactional
     @Override
     public void saveBooking(Booking booking) {
 
